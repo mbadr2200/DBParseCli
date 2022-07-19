@@ -1,0 +1,33 @@
+{
+  "name": "@mbadr2200/DBParseServer",
+  "version": "1.0.0",
+  "description": "CLI To make parse server Project in just a second with the required configuration ",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "Parse server"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bin": {
+    "createParseProject": "./index.js"
+  },
+  "dependencies": {
+    "chalk": "^5.0.1",
+    "chalk-animation": "^2.0.2",
+    "execa": "^6.1.0",
+    "figlet": "^1.5.2",
+    "gradient-string": "^2.0.1",
+    "inquirer": "^9.0.1",
+    "listr": "^0.14.3",
+    "nanospinner": "^1.1.0",
+    "ncp": "^2.0.0",
+    "pkg-install": "^1.0.0"
+  }
+}
