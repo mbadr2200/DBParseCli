@@ -1,5 +1,5 @@
 {
-  "name": "@mbadr2200/DBParseServer",
+  "name": "@mbadr2200/dbparse",
   "version": "1.0.0",
   "description": "CLI To make parse server Project in just a second with the required configuration ",
   "main": "index.js",
@@ -14,9 +14,9 @@
     "Parse server"
   ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bin": {
-    "createParseProject": "./index.js"
+    "create_db_parse": "./index.js"
   },
   "dependencies": {
     "chalk": "^5.0.1",

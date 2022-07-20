@@ -10,24 +10,21 @@ import fs from "fs";
 import ncp from "ncp";
 import path from "path";
 import { promisify } from "util";
-import {execa} from 'execa';
+import { execa } from "execa";
 import listr from "listr";
-import {projectInstall } from "pkg-install";
-
-
+import { projectInstall } from "pkg-install";
 
 const access = promisify(fs.access);
 const copy = promisify(ncp);
 
-async function initGit(options){
-  const result = await execa("git",['init'],{
-    cwd:path.resolve(new URL(options.targetDirectory).pathname, "./parse")
-  })
-  if(result.failed)
-  {
+async function initGit(options) {
+  const result = await execa("git", ["init"], {
+    cwd: path.resolve(new URL(options.targetDirectory).pathname, "./parse"),
+  });
+  if (result.failed) {
     return Promise.reject(new Error("Failed to initialize git 🤦‍♂️"));
   }
-  return ;
+  return;
 }
 
 async function copyTemplateFiles(options) {
@@ -46,7 +43,7 @@ async function copyTemplateFiles(options) {
     clobber: false,
   });
   // console.log( path.resolve(new URL(options.targetDirectory).pathname, "./parse/.env") , "env file 💯");
-   fs.writeFile(
+  fs.writeFile(
     path.resolve(new URL(options.targetDirectory).pathname, "./parse/.env"),
     configs,
     () => {}
@@ -79,21 +76,25 @@ export async function createProject(options) {
 
   const tasks = new listr([
     {
-      title:"Make Project Files",
-      task: () => copyTemplateFiles(options)
+      title: "Make Project Files",
+      task: () => copyTemplateFiles(options),
     },
     {
-      title:"Init Git",
-      task: () => initGit(options)
+      title: "Init Git",
+      task: () => initGit(options),
     },
     {
-      title:"Install Dependencies",
-      task: () => projectInstall({
-        cwd:path.resolve(new URL(options.targetDirectory).pathname, "./parse")
-      }),
-      skip: () => options.installDeps.includes("No")
-    }
-  ])
+      title: "Install Dependencies",
+      task: () =>
+        projectInstall({
+          cwd: path.resolve(
+            new URL(options.targetDirectory).pathname,
+            "./parse"
+          ),
+        }),
+      skip: () => options.installDeps.includes("No"),
+    },
+  ]);
 
   await tasks.run();
   // spinner.stop();
@@ -108,32 +109,15 @@ export async function createProject(options) {
 const sleep = (ms = 2000) => new Promise((r) => setTimeout(r, ms));
 
 async function welcome() {
-  figlet(
-    "DB Parse server script",
-    {
-      // font: 'banner',
-      // horizontalLayout: 'default',
-      // verticalLayout: 'default',
-      // width: 20,
-      // whitespaceBreak: true
-    },
-    (err, data) => {
-      // console.log(gradient([
-      //     {color: '#72B948', pos: 0},
-      //     {color: '#6DCAE1', pos: 0.8},
-      //     {color: '#6DCAE1', pos: 1}
-      //   ])(data))
-      console.log(gradient.summer.multiline(data));
-    }
-  );
-  const rainbowTitle = chalkAnimation.rainbow("By.Mostafa Badr");
+  figlet("DB Parse server script", (err, data) => {
+    console.log(gradient.summer.multiline(data));
+  });
+  
   await sleep(500);
 
-  // rainbowTitle.stop();
 }
 
 await welcome();
-
 
 let questions = [
   {
